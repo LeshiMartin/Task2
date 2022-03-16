@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  httpapi.host:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - redis
+    networks:
+      - database
+    environment:
+      DbServer: mssql_db
+      DbPort: 1456
+      DbUser: sa
+      Password: P@sswo0rd1!
+      Database: GameTask
+      Redis_Port: 6378
+      secret: Super_Secret
+      issuer: httpapi.host
+      audience: angular
+      Cors_Endpoint: http://localhost:4200
+    ports: 
+      - "8190:80"
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04"
+    user: root
+    container_name: mssql_db
+    networks:
+      database:
+        aliases:
+          - mssql_db
+    volumes:
+      - mssql-server-linux-data:/var/opt/mssql/data
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: P@sswo0rd1!
+      
+    ports:
+        - "1433:1433"
+  
+  redis:
+      image: redis
+      networks:
+        - database
+      volumes:
+        - redis_data:/data
+      ports:
+        - "6378:6379"
+
+volumes:
+  mssql-server-linux-data:
+  redis_data:
+    external: false
+networks:
+  database:
