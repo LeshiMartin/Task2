@@ -105,11 +105,14 @@ namespace HttpApi.Host.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int>("CorrectAnswer")
-                        .HasColumnType("int");
+                    b.Property<double>("CorrectAnswer")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -127,16 +130,13 @@ namespace HttpApi.Host.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsFinished")
-                        .HasColumnType("bit");
-
                     b.Property<string>("ProposedAnswer")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("UserGameStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()

@@ -3,6 +3,6 @@
 public interface ICacheService
 {
 
-  Task SetRecordAsync<T> ( string key, T data, TimeSpan? Expiry );
-  Task<T> GetRecordAsync<T> ( string key );
+  Task SetRecordAsync<T> ( string key, T data, TimeSpan? Expiry=null );
+  Task<T?> GetRecordAsync<T> ( string key );
 }

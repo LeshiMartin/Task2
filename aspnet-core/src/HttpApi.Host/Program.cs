@@ -5,6 +5,7 @@ using HttpApi.Host.Extensions;
 using HttpApi.Host.Hubs;
 using HttpApi.Host.Models.Auth;
 using HttpApi.Host.Services.AuthServices;
+using MediatR;
 
 CancellationToken cancellationToken () => new CancellationTokenSource (TimeSpan.FromMinutes (1)).Token;
 var builder = WebApplication.CreateBuilder (args);
@@ -13,16 +14,20 @@ builder.RegisterDbContext ();
 builder.RegisterIdentity ();
 builder.RegisterRedis ();
 builder.RegisterCors ();
+builder.RegisterNotificationImplementations ();
+builder.RegisterAutoMapper ();
+builder.RegisterGameServices ();
 builder.Services.AddFluentValidation ();
+builder.Services.AddMediatR (typeof (Program));
 builder.WebHost.UseUrls ("http://*80");
 
 var app = builder.Build ();
 app.ExecuteMigrations ();
 app.UseWebCors ();
-app.UseRouting ();
 app.UseAuthentication ();
+app.UseRouting ();
 app.UseAuthorization ();
-app.MapGet ("/", () => "Hello World!");
+app.MapGet ("/", () => Results.Ok("Hello"));
 app.MapPost ("/login", async ( IAuthService authService, ILogger<Program> logger, LoginModel loginModel ) =>
  {
    try
@@ -30,14 +35,19 @@ app.MapPost ("/login", async ( IAuthService authService, ILogger<Program> logger
      var token = await authService.SignInAsync (loginModel, cancellationToken ());
      return Results.Ok (new
      {
-       expiresAt = new DateTime ().AddHours (SystemConstants.TOKEN_EXPIRATION_HOURS),
+       expiresAt = DateTime.Now.AddHours (SystemConstants.TOKEN_EXPIRATION_HOURS),
        token
      });
    }
    catch ( ValidationException exc )
    {
      logger.LogError (exc, "{message}", exc.Message);
-     return Results.BadRequest (exc);
+     return Results.BadRequest (exc.Message);
+   }
+   catch ( ArgumentException exc )
+   {
+     logger.LogError (exc, "{message}", exc.Message);
+     return Results.BadRequest (exc.Message);
    }
    catch ( Exception exc )
    {
@@ -60,7 +70,12 @@ app.MapPost ("/Register", async ( IAuthService authService, ILogger<Program> log
    catch ( ValidationException exc )
    {
      logger.LogError (exc, "{message}", exc.Message);
-     return Results.BadRequest (exc);
+     return Results.BadRequest (exc.Message);
+   }
+   catch ( ArgumentException exc )
+   {
+     logger.LogError (exc, "{message}", exc.Message);
+     return Results.BadRequest (exc.Message);
    }
    catch ( Exception exc )
    {
@@ -68,6 +83,7 @@ app.MapPost ("/Register", async ( IAuthService authService, ILogger<Program> log
      return Results.StatusCode (500);
    }
  });
+
 app.UseEndpoints (e =>
  {
    e.MapHub<MainHub> ("/hubs/MainHub");

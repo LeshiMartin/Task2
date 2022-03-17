@@ -2,5 +2,6 @@ node_modules
 aspnet-core/src/HttpApi.Host/bin
 aspnet-core/src/HttpApi.Host/obj
 aspnet-core/src/HttpApi.Host/.vs
-
+aspnet-core/src/HttpApi.Host.Tests/bin
+aspnet-core/src/HttpApi.Host.Tests/obj
 .vscode/solution-explorer

@@ -19,11 +19,11 @@ public class CacheService : ICacheService
     await _db.StringSetAsync (key, valStr, Expiry ?? TimeSpan.FromHours (SystemConstants.REDIS_EXPIRY_HOURS));
   }
 
-  public async Task<T> GetRecordAsync<T> ( string key )
+  public async Task<T?> GetRecordAsync<T> ( string key )
   {
     var valStr = await GetStringAsync (key);
     return string.IsNullOrEmpty (valStr) ?
-      default! :
+      default :
       JsonSerializer.Deserialize<T> (valStr)!;
   }
 

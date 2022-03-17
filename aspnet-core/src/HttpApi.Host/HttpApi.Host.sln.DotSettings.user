@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3f1abc8a_002Dd091_002D49b6_002D9945_002Daffd221de1fb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GenerateCondition_Should_Randomize_The_Output" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::49BBE1C8-E710-4B55-8D50-6976ED09ABC1::net6.0::HttpApi.Host.Tests.ServiceTests.GameGeneratorTests.GenerateCondition_Should_Randomize_The_Output&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::49BBE1C8-E710-4B55-8D50-6976ED09ABC1::net6.0::HttpApi.Host.Tests.ServiceTests.GameGeneratorTests.GenerateSolutionValue_Should_ProduceValue_That_Match_Expected&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

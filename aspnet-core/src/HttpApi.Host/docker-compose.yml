@@ -11,13 +11,9 @@ services:
     networks:
       - database
     environment:
-      DbServer: mssql_db
-      DbPort: 1456
-      DbUser: sa
-      Password: P@sswo0rd1!
-      Database: GameTask
+      Connection_String: Server=db;Database=GameTask;User Id=sa;Password=P@sswo0rd1!
       Redis_Port: 6378
-      secret: Super_Secret
+      secret: Super_Secret_TokenValidaitonSecret
       issuer: httpapi.host
       audience: angular
       Cors_Endpoint: http://localhost:4200
@@ -26,11 +22,10 @@ services:
   db:
     image: "mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04"
     user: root
-    container_name: mssql_db
     networks:
       database:
         aliases:
-          - mssql_db
+          - db
     volumes:
       - mssql-server-linux-data:/var/opt/mssql/data
     environment:
