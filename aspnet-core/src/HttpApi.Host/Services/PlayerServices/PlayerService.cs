@@ -33,6 +33,9 @@ public class PlayerService : IPlayerService
   public async Task PlayerConnectedAsync ( Player player )
   {
     var waitingList = await WaitingPlayersAsync ();
+    if ( waitingList.Any (x => x.UserId == player.UserId) )
+      waitingList = waitingList.Where (x => x.UserId != player.UserId).ToHashSet ();
+
     waitingList.Add (player);
     await _cacheService.SetRecordAsync (USERS_WAITING_KEY, waitingList);
   }
@@ -40,8 +43,6 @@ public class PlayerService : IPlayerService
   public async Task PlayerDisconnectedAsync ( string userId )
   {
     var inGamePlayers = await InGamePlayersAsync ();
-
-
     if ( inGamePlayers.Any (x => x.UserId == userId) )
       await InGamePlayerLeave (userId, inGamePlayers);
 
@@ -73,10 +74,11 @@ public class PlayerService : IPlayerService
     if ( !await CheckForOpenPositionAsync () )
       return false;
 
-    var inGameUsers = await InGamePlayersAsync ();
+    var inGameUsers = (await InGamePlayersAsync ()).Where (x => x.UserId != player.UserId)
+      .ToHashSet ();
     inGameUsers.Add (player);
     await _cacheService.SetRecordAsync (USERS_IN_GAME_KEY, inGameUsers);
-
+    await _mediator.Publish (new PlayerJoinedNotificationRequest ());
     await LeaveWaitingList (player.UserId);
     return true;
 

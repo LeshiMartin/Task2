@@ -19,7 +19,18 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@auth/*": [
+        "src/app/auth/*"
+      ],
+      "@game/*": [
+        "src/app/game/*"
+      ],
+      "@utility/*": [
+        "src/app/utility/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apis: () => {
+    let _default = `http://localhost:8190`;
+    return {
+      login: `${_default}/login`,
+      register: `${_default}/register`,
+      hub: `${_default}/hubs/mainHub`,
+    };
+  },
 };
 
 /*

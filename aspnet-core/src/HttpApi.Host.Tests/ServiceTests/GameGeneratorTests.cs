@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using HttpApi.Host.DAL;
-using HttpApi.Host.Models;
 using HttpApi.Host.Services.GameServices;
-using Microsoft.EntityFrameworkCore;
 using NSubstitute;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +47,7 @@ public class GameGeneratorTests
   [InlineData (3, 5, "-", -2)]
   public void GenerateSolutionValue_Should_ProduceValue_That_Match_Expected ( int x, int y, string op, double expected )
   {
-    var res = _gameGenerator.GenerateSolutionValue (x, y, op);
+    var res = GameGenerator.GenerateSolutionValue (x, y, op);
     res.Should ().Be (expected);
   }
 }

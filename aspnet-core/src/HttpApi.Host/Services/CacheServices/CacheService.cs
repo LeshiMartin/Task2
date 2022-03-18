@@ -15,7 +15,7 @@ public class CacheService : ICacheService
   public async Task SetRecordAsync<T> ( string key, T data, TimeSpan? Expiry = null )
   {
 
-    var valStr = JsonSerializer.Serialize<T> (data);
+    var valStr = JsonSerializer.Serialize (data);
     await _db.StringSetAsync (key, valStr, Expiry ?? TimeSpan.FromHours (SystemConstants.REDIS_EXPIRY_HOURS));
   }
 

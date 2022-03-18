@@ -63,7 +63,7 @@ public class GameGenerator : IGameGenerator
     var game = new Game ()
     {
       AnswerValue = answer,
-      Condition = $"{x}{operatorSign}{y}={solutionSuggestion}",
+      Condition = $"{x} {operatorSign} {y} = {solutionSuggestion}",
       CorrectAnswer = solution
     };
     await _gameRepo.InsertGameAsync (game, cancellationToken);
@@ -78,6 +78,6 @@ public class GameGenerator : IGameGenerator
   private static string GenerateCorrectAnswer ( double solution, double res )
    => solution.IsEqualTo (res) ? "Yes" : "No";
 
-  internal double GenerateSolutionValue ( int x, int y, string operationSign )
+  internal static double GenerateSolutionValue ( int x, int y, string operationSign )
     => _operations[ operationSign ] (x, y);
 }

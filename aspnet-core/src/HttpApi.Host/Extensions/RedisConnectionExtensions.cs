@@ -8,7 +8,7 @@ public static class RedisConnectionExtensions
   public static IServiceCollection RegisterRedis ( this WebApplicationBuilder builder )
   {
     builder.Services.AddSingleton<IConnectionMultiplexer> (b =>
-      ConnectionMultiplexer.Connect ($"localhost:{builder.Configuration[ "Redis_Port" ]}"));
+      ConnectionMultiplexer.Connect (builder.Configuration[ "Redis" ]));
     builder.Services.AddSingleton<ICacheService, CacheService> ();
     return builder.Services;
   }

@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-content class="flex justify-center">
+    <table class="mat-table w-100">
+      <caption>
+        <p class="text-center">
+          Your score is {{(games$|async)|status}}. {{title$|async}}
+        </p>
+      </caption>
+      <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell">
+            #
+          </th>
+          <th class="mat-header-cell">
+            Expression
+          </th>
+          <th class="mat-header-cell">
+            Your Answer
+          </th>
+          <th class="mat-header-cell">
+            Result
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="mat-row" *ngFor="let item of games$|async; trackBy:trackById;let i=index">
+          <td class="mat-cell">
+            {{i+1}}
+          </td>
+          <td class="mat-cell">
+            {{item.condition}}
+          </td>
+          <td class="mat-cell">
+            {{item.submittedAnswer}}
+          </td>
+          <td class="mat-cell">
+            {{item.answerStatus}}
+          </td>
+        </tr>
+        <tr class="mat-row" *ngIf=" currentGame$|async ">
+          <td class="mat-cell">
+            #
+          </td>
+          <td class="mat-cell">
+            {{(currentGame$|async)?.condition}}
+          </td>
+          <td class="mat-cell">
+            <div class="flex">
+              <input type="hidden" #idVal [value]="(currentGame$|async)?.gameId" />
+              <button color="primary"
+                      (click)="submitValue('Yes',+idVal.value)" mat-raised-button>Yes</button>
+              <button color="accent"
+                      class="ml-2"
+                      (click)="submitValue('No',+idVal.value)" mat-raised-button>No</button>
+            </div>
+          </td>
+          <td class="mat-cell">
+            {{(currentGame$|async)?.answerStatus}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>

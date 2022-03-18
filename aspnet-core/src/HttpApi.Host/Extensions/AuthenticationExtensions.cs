@@ -23,7 +23,7 @@ public static class AuthenticationExtensions
       .AddDefaultTokenProviders ();
 
     var config = builder.Configuration;
-    var key = Encoding.ASCII.GetBytes (config[ "secrete" ] ?? "");
+    var key = Encoding.ASCII.GetBytes (config[ "secret" ] ?? "");
     builder.Services.AddAuthentication (options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

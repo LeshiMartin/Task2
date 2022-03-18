@@ -12,7 +12,7 @@ services:
       - database
     environment:
       Connection_String: Server=db;Database=GameTask;User Id=sa;Password=P@sswo0rd1!
-      Redis_Port: 6378
+      Redis: redis:6379
       secret: Super_Secret_TokenValidaitonSecret
       issuer: httpapi.host
       audience: angular
@@ -42,7 +42,7 @@ services:
       volumes:
         - redis_data:/data
       ports:
-        - "6378:6379"
+        - "6379:6379"
 
 volumes:
   mssql-server-linux-data:

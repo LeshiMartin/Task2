@@ -1,0 +1,18 @@
+<div class="container">
+  <ng-container *ngIf="placeIsOpened$|async; else allSeatsTaken">
+    <div (click)="joinGame()" class="primary pulsating">
+      <p>
+        A seat is open click to join the game
+      </p>
+    </div>
+  </ng-container>
+  <ng-template #allSeatsTaken>
+    <div>
+      <p>
+        All seat's are taken we'll notify you as soon as a seat opens up
+      </p>
+    </div>
+  </ng-template>
+
+
+</div>

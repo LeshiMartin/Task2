@@ -10,6 +10,7 @@ public static class NotificationsRegister
     var services = builder.Services;
     services.AddScoped<IPlaceOpenedNotification, MainHub> ();
     services.AddScoped<IGameIsFinished, MainHub> ();
+    services.AddScoped<IPlayerJoined, MainHub> ();
     return builder;
   }
 }

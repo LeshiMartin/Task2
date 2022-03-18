@@ -36,3 +36,19 @@ internal class PlaceOpenedNotificationHandler : INotificationHandler<PlaceOpened
   }
 }
 
+
+public record PlayerJoinedNotificationRequest : INotification;
+
+internal class PlayerJoinedNotificationHandler : INotificationHandler<PlayerJoinedNotificationRequest>
+{
+  private readonly IPlayerJoined _playerJoined;
+
+  public PlayerJoinedNotificationHandler(IPlayerJoined playerJoined)
+  {
+    _playerJoined = playerJoined;
+  }
+  public async Task Handle( PlayerJoinedNotificationRequest notification, CancellationToken cancellationToken)
+  {
+    await _playerJoined.PlayerJoinedAsync();
+  }
+}

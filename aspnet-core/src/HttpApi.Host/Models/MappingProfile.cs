@@ -18,6 +18,7 @@ public class MappingProfile : Profile
   private static string GetAnswerStatus ( UserGame c )
   {
     return UserGameStatusHelper.IsCorrect (c.UserGameStatus) ? "OK" :
-      c.UserGameStatus == (int) UserGameStatuses.InCorrect ? "FAILED" : "";
+      c.UserGameStatus == (int) UserGameStatuses.InCorrect ? "FAILED" :
+      c.UserGameStatus == (int) UserGameStatuses.Missed ? "MISSED" : "";
   }
 }

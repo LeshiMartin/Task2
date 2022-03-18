@@ -1,0 +1,36 @@
+<div class="container">
+  <form (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-title>
+        Login
+      </mat-card-title>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input
+                 [(ngModel)]="loginModel.userName"
+                 matInput
+                 required
+                 name="userName" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+                 [(ngModel)]="loginModel.password"
+                 matInput
+                 type="password"
+                 required
+                 name="password" />
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="flex justify-content-end">
+          <button [disabled]="!loginModel.password && !loginModel.userName"
+                  color="primary"
+                  mat-raised-button>Login</button>
+          <button type="button" [routerLink]="['../register']" mat-raised-button>Register</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

@@ -23,7 +23,7 @@ internal class AuthService : IAuthService
   {
     var user = await ValidateLoginRequest(model, cancellationToken);
 
-    var claims = new Claim[] { new("userName", user.UserName) };
+    var claims = new Claim[] { new (ClaimTypes.NameIdentifier,user.Id) };
 
     var authSigningKey =
       new SymmetricSecurityKey (Encoding.UTF8.GetBytes (_configuration["secret"] ?? string.Empty));
